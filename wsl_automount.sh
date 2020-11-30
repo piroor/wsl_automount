@@ -1,5 +1,7 @@
 #!/bin/bash
 
+MOUNT_UID=1000
+MOUNT_GID=1000
 
 if [ $# -eq 2 ]; then
 	if [ $UID -ne 0 ]; then
@@ -16,7 +18,7 @@ if [ $# -eq 2 ]; then
 			mkdir /mnt/$drive
 		fi
 		echo "Mounting drive"
-		mount -t drvfs $drive: /mnt/$drive
+		mount -t drvfs $drive: /mnt/$drive -o metadata,umask=22,fmask=111,uid=$MOUNT_UID,gid=$MOUNT_GID
 	else
 		if [[ "$1" == "unmount" ]]; then
 			echo "Umounting drive"
